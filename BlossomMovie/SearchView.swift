@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State private var searchByMovies = true
+    @State private var searchByMovies = true // tracks whether user is searching movies or tvshows. the toolbar toggles between the two modes changing icon, title and placeholder text
     @State private var searchText = ""
     
     private let searchViewModel = SearchViewModel()
@@ -26,7 +26,7 @@ struct SearchView: View {
                         .clipShape(.rect(cornerRadius: 10))
                 }
                 
-                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]) {
+                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]) {    // 3 column grid of poster thumbnails
                     ForEach(searchViewModel.searchTitles) { title in
                         AsyncImage(url: URL(string: title.posterPath ?? "")){ image in
                             image
@@ -59,8 +59,8 @@ struct SearchView: View {
                 }
             }
             .searchable(text: $searchText, prompt: searchByMovies ? Constants.moviePlaceHolderString : Constants.tvPlaceHolderString)
-            .task(id: searchText) {
-                try? await Task.sleep(for: .milliseconds(500))
+            .task(id: searchText) {     // reactive task that reruns whenever searchText changes.
+                try? await Task.sleep(for: .milliseconds(500))  // debounce.. it waits hald a seconf after the user stops typing before firing the search request. this prevents a new api call on every single keystroke
                 
                 if Task.isCancelled {
                     return
@@ -78,3 +78,6 @@ struct SearchView: View {
 #Preview {
     SearchView()
 }
+
+
+// '.searchable()' adds ios native searchbar to the navigation bar. as user types searchText updates
