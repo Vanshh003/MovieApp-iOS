@@ -19,6 +19,11 @@ struct APIConfig: Decodable {
     
     //       () at the end immediately execute the closure at runtime, in turn, the credentials are available
     //          right away.
+    
+    
+    
+    // this code runs once the app starts
+    // the result is stored in 'shared' forever
     static let shared: APIConfig? = {
         do {
             return try loadConfig()
@@ -28,6 +33,8 @@ struct APIConfig: Decodable {
         }
     }()
     
+    
+    // finds the json file inside the app bundle, reads its bytes and converts them into APIConfig object
     private static func loadConfig() throws -> APIConfig {
         guard let url = Bundle.main.url(forResource: "APIConfig", withExtension: "json") else {
             throw APIConfigError.fileNotFound
