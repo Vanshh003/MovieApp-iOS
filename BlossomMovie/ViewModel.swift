@@ -5,6 +5,14 @@
 //  Created by Vansh Aggarwal on 07/03/26.
 //
 
+
+
+// home and upcoming data manager
+// mvvm architecture
+// viewmodel sits between ui and the data -> it fetches data, tracks loading state, and tells ui what to show
+
+
+
 import Foundation
 
 // View Model -> handle data while UI focuses on managing the interface
@@ -14,6 +22,7 @@ import Foundation
                 // allows this VM to automatically notify UI if any data changes
                 // cant use with structs as structs are value types
 class ViewModel {
+    // state machine
     enum FetchStatus {
         case notStarted
         case fetching
@@ -36,6 +45,11 @@ class ViewModel {
     var heroTitle = Title.previewTitles[0]
     var videoId = ""
     
+    
+    // fetches all four home screen lists in parallel using async let.
+    // without async let, each fetch would wait for the previous one to finish taking 4x longer
+    // with async let, all 4 start simultaneously and the function waits until all 4 complete
+    // then pick a random trending movie as heroTitle
     func getTitles() async {
         homeStatus = .fetching
         
@@ -66,6 +80,8 @@ class ViewModel {
         }
     }
     
+    
+    // fetches a yt trailer video id for given title name
     func getVideoId(for title: String) async {
         videoIdStatus = .fetching
         
@@ -78,6 +94,8 @@ class ViewModel {
         }
     }
     
+    
+    // fetches list of upcoming movies for upcoming tab
     func getUpcomingMovies() async {
             upcomingStatus = .fetching
             
@@ -90,3 +108,6 @@ class ViewModel {
             }
         }
 }
+
+
+// 'Observable' makes swift automatucallyd etect when any property changes and re-render any view that depends on it
