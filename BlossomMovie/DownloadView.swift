@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct DownloadView: View {
-    @Query(sort: \Title.title) var savedTitles: [Title]
+    @Query(sort: \Title.title) var savedTitles: [Title]     // it automatically fetches all saved title objects from the local database sorted alphabetically by title. it also autpmatically updates whenever the db changes. 
     
     var body: some View {
         NavigationStack {
