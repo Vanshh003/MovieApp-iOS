@@ -5,16 +5,23 @@
 //  Created by Vansh Aggarwal on 05/03/26.
 //
 
+
+
+// Movie/TV Show data model
+
+
+
 import SwiftData
+
 struct TMDBAPIObject: Decodable {
     var results: [Title] = []
 }
 
-@Model
+@Model //tells SwiftData that this class can be saced to the local db, without it titles only exist in memoty and disappear when app closes
 class Title: Decodable, Identifiable, Hashable {
-    @Attribute(.unique) var id: Int?
-    var title: String?
-    var name: String?
+    @Attribute(.unique) var id: Int?            // no duplicate titles saved to db
+    var title: String?                          // tmdb uses title for movies
+    var name: String?                           // tmdb uses name for tv shows
     var overview: String?
     var posterPath: String?
     
@@ -26,6 +33,7 @@ class Title: Decodable, Identifiable, Hashable {
         self.posterPath = posterPath
     }
     
+    // it tells swift which json field maps to which property
     enum CodingKeys: CodingKey {
             case id
             case title
@@ -44,6 +52,8 @@ class Title: Decodable, Identifiable, Hashable {
         posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
     }
     
+    
+    // hardcoded values for temp check
     static var previewTitles = [
             Title(id: 1, title: "BeetleJuice", name: "BeetleJuice", overview: "A movie about BeetleJuice", posterPath: Constants.testTitleURL),
             Title(id: 2, title: "Pulp Fiction", name: "Pulp Fiction", overview: "A movie about Pulp Fiction", posterPath: Constants.testTitleURL2),
@@ -52,3 +62,4 @@ class Title: Decodable, Identifiable, Hashable {
 }
 
 // 'Hashable' let swift tell if two items are same. required when using navigation path
+// 'Decodable' means swift can automatically convert json from api into a Title object.
