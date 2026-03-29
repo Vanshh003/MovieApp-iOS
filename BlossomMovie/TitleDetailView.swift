@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct TitleDetailView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss     // gives the view ability to go back to the previous screen, used after saving a download
     
     let title: Title
     var titleName: String {
