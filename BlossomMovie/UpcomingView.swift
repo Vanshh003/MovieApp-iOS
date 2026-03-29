@@ -5,6 +5,11 @@
 //  Created by Vansh Aggarwal on 13/03/26.
 //
 
+
+
+
+// simple view that uses viewmodel to fetch upcoming movies and displays them in verticallistview.
+
 import SwiftUI
 
 struct UpcomingView: View {
