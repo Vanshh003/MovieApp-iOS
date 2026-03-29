@@ -5,11 +5,20 @@
 //  Created by Vansh Aggarwal on 03/03/26.
 //
 
+
+
+// scrollable movie row
+// it renders a horizontal ScrollView with LazyHStack
+            // lazy means posters are only loaded into memory as they scroll into view, which is critical for performance when you have more poster images in one row
+
+
 import SwiftUI
 
 struct HorizontalListView: View {
     let header : String
     var titles : [Title]
+    
+    // a closure, gets called when a poster is tapped
     let onSelect : (Title) -> Void
     
     var body: some View {
@@ -47,4 +56,6 @@ struct HorizontalListView: View {
     }
 }
 
-// 'onSelect' is a closure property that takes a title and returns nothing. the title we pass will be accessible to home view allowing it to handle navigation
+// 'onSelect' is a closure property that takes a title and returns nothing. the title we pass will be accessible to home view allowing it to handle navigation. it is how this reusable component communicates back to the HomeView, it doesnt navigate itself, it just tells the parent: "the user tapped this tile, you handle it"
+
+// AsyncImage loads images from urls asynchronously, it shows a spinner while loading,then the image when ready
