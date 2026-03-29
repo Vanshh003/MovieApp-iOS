@@ -5,6 +5,11 @@
 //  Created by Vansh Aggarwal on 02/03/26.
 //
 
+
+// outer shell of the entire app
+// tab bar with 4 tabs, when you tap each icon, it swaps between the four main views
+
+
 import SwiftUI
 
 struct ContentView: View {
@@ -23,7 +28,7 @@ struct ContentView: View {
                 DownloadView()
             }
         }
-        .onAppear {
+        .onAppear {                                 // to check if api keys loaded correctly
             if let config = APIConfig.shared {
                 print(config.tmdbAPIKey)
                 print(config.tmdbBaseURL)
