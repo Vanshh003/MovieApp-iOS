@@ -7,6 +7,7 @@
 
 import Foundation
 
+// errors loading or reading the config file
 enum APIConfigError: Error, LocalizedError {
     case fileNotFound
     case dataLoadingFailed(underlyingError: Error)
@@ -24,6 +25,7 @@ enum APIConfigError: Error, LocalizedError {
     }
 }
 
+// errors making api calls
 enum NetworkError: Error, LocalizedError {
     case badURLResponse(underlyingError: Error)
     case missingConfig
