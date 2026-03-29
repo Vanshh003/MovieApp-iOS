@@ -36,6 +36,7 @@ struct Constants {
     
     static let posterURLStart = "https://image.tmdb.org/t/p/w500"
     
+    // tmdb api doesnt return full image urls.. it returns a path like /lv301rXyTng4.jpg
     static func addPosterPath(to titles: inout[Title]) {
         for index in titles.indices {
             if let path = titles[index].posterPath {
